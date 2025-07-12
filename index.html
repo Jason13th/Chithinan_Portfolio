@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chithinan Chantra | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes glow {
+        0%, 100% {
+          text-shadow: 0 0 5px var(--text-glow), 0 0 10px var(--text-glow), 0 0 15px var(--text-glow);
+        }
+        50% {
+          text-shadow: 0 0 10px var(--text-glow), 0 0 20px var(--text-glow), 0 0 30px var(--text-glow);
+        }
+      }
+
+       @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      @keyframes slideIn {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+      }
+      
+      :root {
+        /* Hacker Dark Theme */
+        --bg-primary: #000000;
+        --bg-secondary: rgba(10, 25, 47, 0.5);
+        --bg-secondary-opaque: rgb(10, 25, 47);
+        --text-primary: #05fdd8;
+        --text-secondary: #a0aec0;
+        --text-accent: #63b3ed;
+        --text-glow: #05fdd8;
+        --subtitle-glow-color: #007bff;
+        --border-primary: rgba(5, 253, 216, 0.3);
+        --border-primary-hover: rgba(5, 253, 216, 0.7);
+        --border-accent: #2c5282;
+        --pulse-color: #63b3ed;
+        --gradient-from: #22d3ee;
+        --gradient-via: #3b82f6;
+      }
+
+      [data-theme="light"] {
+        --bg-primary: #f8fafc;
+        --bg-secondary: rgba(255, 255, 255, 0.8);
+        --bg-secondary-opaque: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #475569;
+        --text-accent: #0284c7;
+        --text-glow: transparent;
+        --subtitle-glow-color: transparent;
+        --border-primary: #e2e8f0;
+        --border-primary-hover: #0284c7;
+        --border-accent: #93c5fd;
+        --pulse-color: #0284c7;
+        --gradient-from: #0ea5e9;
+        --gradient-via: #2563eb;
+      }
+
+      body {
+        font-family: 'IBM Plex Mono', monospace;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .bg-primary { background-color: var(--bg-primary); }
+      .text-primary { color: var(--text-primary); }
+      .text-secondary { color: var(--text-secondary); }
+      .text-accent { color: var(--text-accent); }
+      .border-primary { border-color: var(--border-primary); }
+      .border-accent { border-color: var(--border-accent); }
+      .pulse-color { background-color: var(--pulse-color); }
+      .gradient-line { background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-via), transparent); }
+
+      .glow-green {
+        text-shadow: 0 0 5px var(--text-glow), 0 0 10px var(--text-glow), 0 0 15px var(--text-glow);
+        transition: text-shadow 0.3s ease;
+      }
+      .glow-blue {
+        text-shadow: 0 0 5px var(--subtitle-glow-color), 0 0 10px var(--subtitle-glow-color), 0 0 15px var(--subtitle-glow-color);
+        transition: text-shadow 0.3s ease;
+      }
+
+      .scanline-overlay {
+        position: relative;
+        overflow-x: hidden;
+      }
+      .scanline-overlay::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        pointer-events: none;
+        z-index: 2;
+        opacity: var(--scanline-opacity, 0.6);
+        transition: opacity 0.3s ease;
+      }
+      [data-theme="light"] .scanline-overlay::before {
+        --scanline-opacity: 0;
+      }
+      
+      .glassmorphism {
+        background: var(--bg-secondary);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .card-border {
+        border: 1px solid var(--border-primary);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-border:hover {
+        border-color: var(--border-primary-hover);
+      }
+      [data-theme="dark"] .card-border:hover {
+        box-shadow: 0 0 15px rgba(5, 253, 216, 0.2), 0 0 5px rgba(5, 253, 216, 0.3) inset;
+      }
+      [data-theme="light"] .card-border:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+      }
+      
+      .blinking-cursor {
+        animation: blink 1s step-end infinite;
+        color: var(--text-primary);
+        font-weight: bold;
+      }
+
+      .sticky-nav {
+        animation: slideIn 0.5s ease-out;
+      }
+
+      .project-card:hover {
+        transform: perspective(1000px) rotateX(2deg) rotateY(-4deg) scale(1.02);
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "vite": "https://esm.sh/vite@^7.0.4",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^4.6.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-primary">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
